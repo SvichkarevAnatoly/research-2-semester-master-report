@@ -1,0 +1,95 @@
+\documentclass[a4paper,rep]{thesisby}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    allcolors=black
+}
+
+\usepackage{amsmath} % для математических формул и для автоматического добавления скобок при цитировании
+\usepackage{IEEEtrantools} % для создания многострочных математических формул
+\usepackage{commath} % для знака модуля
+\usepackage{pdfpages} % для вставки pdf
+\usepackage{epstopdf} % для вставки eps
+\usepackage[justification=centering]{caption} % подписи таблиц посередине
+
+\usepackage[figure,table]{totalcount} % для подсчёта числа картинок и таблиц
+\usepackage{totcount}
+\usepackage{totpages} % счётчик страниц. Желательно ставить последним пакетом в преамбуле
+
+% для подсчёта числа источников литературы,
+% но работает только после второй сборки
+\newtotcounter{citenum}
+\def\oldcite{}
+\let\oldcite=\bibcite
+\def\bibcite{\stepcounter{citenum}\oldcite}
+
+% для склонений
+%%http://www.linux.org.ru/forum/general/6993203#comment-6994589 (используется totcount)
+\makeatletter
+\def\formbytotal#1#2#3#4#5{%
+    \newcount\@c
+    \@c\totvalue{#1}\relax
+    \newcount\@last
+    \newcount\@pnul
+    \@last\@c\relax
+    \divide\@last 10
+    \@pnul\@last\relax
+    \divide\@pnul 10
+    \multiply\@pnul-10
+    \advance\@pnul\@last
+    \multiply\@last-10
+    \advance\@last\@c
+    \total{#1}~#2%
+    \ifnum\@pnul=1#5\else%
+    \ifcase\@last#5\or#3\or#4\or#4\or#4\else#5\fi
+    \fi
+}
+\makeatother
+
+\graphicspath{{./figs/}}
+
+\newcommand{\No}{\textnumero}
+
+\begin{document}
+
+\include{parts/titlepage}
+\clearpage
+
+\include{parts/abstract}
+\clearpage
+
+\tableofcontents
+\clearpage
+
+\include{parts/legend}
+\clearpage
+
+\include{parts/intro}
+\clearpage
+
+\include{parts/main/theory}
+\clearpage
+\include{parts/main/implementation}
+\clearpage
+\include{parts/main/interpreter}
+\clearpage
+\include{parts/main/test_function}
+\clearpage
+\include{parts/main/tracker}
+\clearpage
+\include{parts/main/experiment}
+\clearpage
+
+\include{parts/conclusions}
+\clearpage
+
+\include{parts/end}
+\clearpage
+
+\bibliographystyle{utf8gost71u}
+\bibliography{citations}
+
+\end{document}
+
